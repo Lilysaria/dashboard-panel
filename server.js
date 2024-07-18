@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
-const favicon = require("serve-favicon");
 
 require("./config/database");
 
@@ -23,19 +22,18 @@ app.use('/api/posts', postRouter);
 app.use('/api/products', productRouter);
 
 // Serve static assets in production
-if(process.env.NODE_ENV === 'production'){
+if (process.env.NODE_ENV === 'production') {
   // Serve static files from the 'dist' directory
-  const manifest = require('./dist/manifest.json');
   app.use(express.static(path.join(__dirname, "dist")));
   
   // Catch-all route for SPA in production
   app.get('/*', function(req, res) {
-    res.render(path.join(__dirname, 'dist', 'index.ejs'), {manifest});
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
   });
 } else {
   // Catch-all route for SPA in development
   app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, './', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
   });
 }
 
