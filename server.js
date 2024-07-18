@@ -21,21 +21,13 @@ const productRouter = require('./routes/api/products');
 app.use('/api/posts', postRouter);
 app.use('/api/products', productRouter);
 
-// Serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the 'dist' directory
-  app.use(express.static(path.join(__dirname, "dist")));
-  
-  // Catch-all route for SPA in production
-  app.get('/*', function(req, res) {
-    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
-  });
-} else {
-  // Catch-all route for SPA in development
-  app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'index.html'));
-  });
-}
+// Serve static assets
+app.use(express.static(path.join(__dirname, "dist")));
+
+// Catch-all route for SPA
+app.get('/*', function(req, res) {
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+});
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
