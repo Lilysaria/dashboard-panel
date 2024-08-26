@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
 import NavBar from "./components/NavBar/NavBar";
+import LoginForm from "./components/LoginForm/LoginForm";
 import HomePage from "./pages/HomePage/HomePage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       <NavBar />
+      <LoginForm />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/homepage" element={<HomePage />} />
