@@ -16,10 +16,12 @@ app.use(express.json());
 // Routes
 const postRouter = require('./routes/api/posts');
 const productRouter = require('./routes/api/products');
+const adminRouter = require('./routes/api/admins');
 
 // API routes
 app.use('/api/posts', postRouter);
 app.use('/api/products', productRouter);
+app.use('/api/admins', adminRouter);
 
 // Serve static assets
 app.use(express.static(path.join(__dirname, "dist")));
@@ -29,7 +31,11 @@ app.get('/*', function(req, res) {
   res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  const PORT = process.env.PORT || 8000;
+  app.listen(PORT, () => {
+    console.log(`App running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
